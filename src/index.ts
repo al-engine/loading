@@ -3,7 +3,7 @@ import GameObject, {GameObjectParams} from "game_object";
 
 type OnLoading = () => void;
 
-export class Loading extends GameObject<GameObjectParams> {
+export class Loading<Params extends GameObjectParams> extends GameObject<Params> {
   animationIndex = 0;
   timer = 0;
   assets: Asset<any>;
@@ -16,7 +16,7 @@ export class Loading extends GameObject<GameObjectParams> {
     this.onLoading = onLoading;
   }
 
-  update = (params: GameObjectParams) => {
+  update = (params: Params) => {
     if (!this.assets.isLoading()) {
       this.onLoading();
     }
@@ -30,7 +30,7 @@ export class Loading extends GameObject<GameObjectParams> {
     }
   };
 
-  draw = (params: GameObjectParams) => {
+  draw = (params: Params) => {
     params.pixels.setPixel(0, 0, this._calculateColor(0));
     params.pixels.setPixel(2, 0, this._calculateColor(1));
     params.pixels.setPixel(4,  0, this._calculateColor(2));
